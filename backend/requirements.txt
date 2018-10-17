@@ -1,0 +1,5 @@
+ansible
+flask
+paho-mqtt
+flask-socketio
+gevent
