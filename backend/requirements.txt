@@ -2,4 +2,5 @@ ansible
 flask
 paho-mqtt
 flask-socketio
+opencv-python
 gevent
