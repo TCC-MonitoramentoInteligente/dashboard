@@ -5,7 +5,12 @@
 - Angular (```npm install -g @angular/cli```)
 
 ### Run
+Inside frontend directory.
 ```
 npm install
-ng serve 
+ng serve --host <IP_HOST>
+```
+### Dashboard Page
+```
+http://<IP_HOST>:4200/
 ```
