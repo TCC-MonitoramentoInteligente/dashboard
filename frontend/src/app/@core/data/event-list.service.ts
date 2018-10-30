@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { of as observableOf,  Observable } from 'rxjs';
 import * as socketIo from 'socket.io-client';
 
-const SERVER_URL = 'http://localhost:5000';
+const SERVER_URL = 'http://10.1.0.5:5000';
 
 export class Evento {
   date: string;
