@@ -21,7 +21,7 @@ export class SecurityCamerasComponent {
     title: 'Camera #1',
     // source: 'assets/images/camera1.jpg',
     //   source: this.config.get_video(),
-      source: 'http://0.0.0.0:5000/video-debug',
+      source: 'http://10.1.0.5:5000/video-debug',
   }, {
     title: 'Camera #2',
     source: 'assets/images/camera2.jpg',
