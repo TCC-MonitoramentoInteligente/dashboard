@@ -69,7 +69,7 @@ def index():
     return jsonify(INCOMING_EVENTS)
 
 
-@app.route("/send-event")
+@app.route("/send-test-event")
 def event():
     include_message("Test message", 'danger')
     socketio.emit('event', INCOMING_EVENTS)
@@ -96,7 +96,7 @@ def video_debug_receiver():
         gevent.sleep()
 
 
-@app.route("/video-debug")
+@app.route("/monitor-video")
 def video():
     return Response(video_debug_receiver(), mimetype='multipart/x-mixed-replace; boundary=frame')
 

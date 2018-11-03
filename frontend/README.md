@@ -2,7 +2,7 @@
 
 ### Requirements
 - Nodejs (https://nodejs.org/en/download/package-manager/)
-- Angular (```npm install -g @angular/cli```)
+- Angular (```sudo npm install -g @angular/cli```)
 
 ### Run
 Inside frontend directory.

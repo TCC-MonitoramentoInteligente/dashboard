@@ -4,3 +4,4 @@ paho-mqtt
 flask-socketio
 opencv-python
 gevent
+jinja2==2.10
