@@ -2,26 +2,17 @@ import { Component } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
-export class ConfigService {
-    constructor(private http: HttpClient) { }
-    get_video() {
-        return this.http.get('http://0.0.0.0:5000/video-debug');
-    }
-}
-
 @Component({
   selector: 'ngx-security-cameras',
   styleUrls: ['./security-cameras.component.scss'],
   templateUrl: './security-cameras.component.html',
 })
 export class SecurityCamerasComponent {
-  config: ConfigService;
   cameras: any[] = [{
     title: 'Camera #1',
     // source: 'assets/images/camera1.jpg',
     //   source: this.config.get_video(),
-      source: 'http://10.1.0.5:5000/video-debug',
+      source: 'http://10.1.0.7:8070/monitor-video',
   }, {
     title: 'Camera #2',
     source: 'assets/images/camera2.jpg',

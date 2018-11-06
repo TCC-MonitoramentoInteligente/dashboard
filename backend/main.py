@@ -9,11 +9,11 @@ import numpy as np
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-port = 5000
+port = 8070
 
 
-BROKER_ADDRESS = '10.1.0.3'
-MONITOR_ADDRESS = '10.1.0.5'  # IP from machine running this code.
+BROKER_ADDRESS = '10.1.0.2'
+MONITOR_ADDRESS = '10.1.0.7'  # IP from machine running this code.
 MONITOR_PORT_ADDRESS = 5005
 
 
