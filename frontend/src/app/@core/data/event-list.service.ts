@@ -3,61 +3,35 @@ import { of as observableOf,  Observable } from 'rxjs';
 import * as socketIo from 'socket.io-client';
 
 const SERVER_URL = 'http://10.1.0.7:8070';
-
-export class Evento {
-  date: string;
-  content: string;
-}
+const socket = socketIo(SERVER_URL);
 
 @Injectable()
 export class EventListService {
-  private getRandomString = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-  private socket;
-
-  data = {};
-  value = [
-    'Mona',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
-  ];
-
-  constructor() {
-    this.data = {
-      week: this.getDataWeek(),
-    };
-  }
+  constructor() {}
 
   sendMessage(message) {
-    this.socket.emit('add-message', message);
+    socket.emit('enable_camera', message);
   }
 
   getMessages() {
     return new Observable<any>(observer => {
-      this.socket = socketIo(SERVER_URL);
-      this.socket.on('event', (data) => {
+      socket.on('event', (data) => {
         observer.next(data);
       });
       return () => {
-        this.socket.disconnect();
-      };
-    });
-
-    // return observable;
-  }
-
-  private getDataWeek(): Evento[] {
-    return this.value.map((week) => {
-      return {
-        date: week,
-        content: this.getRandomString,
+        socket.disconnect();
       };
     });
   }
-  getEventData(): Observable<Evento[]> {
-    return observableOf(this.data['week']);
-  }
+
+  getCameras() {
+      return new Observable<any>(observer => {
+          socket.on('camera', (data) => {
+              observer.next(data);
+          });
+          return () => {
+              socket.disconnect();
+          };
+      });
+    }
 }

@@ -27,6 +27,11 @@
     }
   }
 
+  .disabled {
+    pointer-events:none; //This makes it not clickable
+    opacity:0.6;         //This grays it out to look disabled
+  }
+
   .cameras-filter {
     display: flex;
 
@@ -105,6 +110,47 @@
 
     &:hover::before {
       opacity: 0;
+    }
+  }
+
+  .event-list-list {
+    padding: 0;
+    margin: 0;
+  }
+
+  .event-list-list li {
+    list-style: none;
+    //display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    color: nb-theme(color-fg);
+    //padding: nb-theme(card-padding);
+    border-bottom:
+            nb-theme(list-item-border-width)
+              //nb-theme(card-header-border-type)
+            nb-theme(separator);
+
+    &:first-child {
+      border-top:
+              nb-theme(list-item-border-width)
+              nb-theme(card-header-border-type)
+              nb-theme(separator);
+    }
+
+    &:hover {
+      background-color: nb-theme(layout-bg);
+
+      &::before {
+        position: absolute;
+        content: '';
+        height: 100%;
+        width: 6px;
+        left: 0;
+        top: 0;
+        background-color: nb-theme(color-success);
+        border-radius: nb-theme(radius);
+      }
     }
   }
 

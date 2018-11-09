@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators';
 
-import { EventListService, Evento } from '../../../@core/data/event-list.service';
+import { EventListService } from '../../../@core/data/event-list.service';
 
 @Component({
   selector: 'ngx-event-list',
@@ -16,27 +16,10 @@ import { EventListService, Evento } from '../../../@core/data/event-list.service
       </nb-card-header>
       <nb-card-body>
         <ul class="event-list-list">
-          <!--<li *ngFor="let item of eventList">-->
-            <!--<div class="visited-date">-->
-              <!--{{ item.date }}-->
-            <!--</div>-->
-            <!--<div class="evento-content">-->
-              <!--<div class="title">Evento</div>-->
-              <!--<div class="value">{{ item.content }} algo masdadsasd</div>-->
-            <!--</div>-->
-          <!--</li>-->
           <li *ngFor="let message of messages">
-            <!--<div class="evento-content">-->
-              <!--<nb-badge text="badgeText" status="warning" position="bottom left"></nb-badge>-->
-                <!--<div class="title">Evento</div>-->
-                <!--<div class="value">{{ message }} algo masdadsasd</div>-->
-                <nb-card status="{{message.status}}">
-                    <nb-card-header>{{message.content}}</nb-card-header>
-                    <!--<nb-card-body>-->
-                        <!--{{ message }}-->
-                    <!--</nb-card-body>-->
-                </nb-card>
-            <!--</div>-->
+            <nb-card status="{{message.status}}">
+                <nb-card-header>{{message.content}}</nb-card-header>
+            </nb-card>
           </li>
         </ul>
       </nb-card-body>
@@ -46,11 +29,9 @@ import { EventListService, Evento } from '../../../@core/data/event-list.service
 export class EventListComponent implements OnDestroy, OnInit {
 
   private alive = true;
-  eventList: Evento[] = [];
   currentTheme: string;
   messages = [];
   connection;
-  message;
 
   constructor(private themeService: NbThemeService,
               private eventService: EventListService) {
@@ -61,26 +42,11 @@ export class EventListComponent implements OnDestroy, OnInit {
       });
   }
 
-  sendMessage() {
-    this.eventService.sendMessage(this.message);
-    this.message = '';
-  }
-
   ngOnInit() {
     this.connection = this.eventService.getMessages().subscribe(message => {
-      this.messages = message;
+    this.messages = message;
     });
-
-    this.getEventList();
   }
-
-  getEventList() {
-    this.eventService.getEventData()
-      .subscribe(eventData => {
-        this.eventList = eventData;
-      });
-  }
-
   ngOnDestroy() {
     this.alive = false;
     this.connection.unsubscribe();

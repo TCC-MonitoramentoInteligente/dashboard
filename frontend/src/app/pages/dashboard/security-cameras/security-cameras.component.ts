@@ -1,34 +1,37 @@
-import { Component } from '@angular/core';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+
+import { EventListService } from '../../../@core/data/event-list.service';
 
 @Component({
   selector: 'ngx-security-cameras',
   styleUrls: ['./security-cameras.component.scss'],
   templateUrl: './security-cameras.component.html',
 })
-export class SecurityCamerasComponent {
-  cameras: any[] = [{
-    title: 'Camera #1',
-    // source: 'assets/images/camera1.jpg',
-    //   source: this.config.get_video(),
-      source: 'http://10.1.0.7:8070/monitor-video',
-  }, {
-    title: 'Camera #2',
-    source: 'assets/images/camera2.jpg',
-  }, {
-    title: 'Camera #3',
-    source: 'assets/images/camera3.jpg',
-  }, {
-    title: 'Camera #4',
-    source: 'assets/images/camera4.jpg',
-  }];
 
-  selectedCamera: any = this.cameras[0];
+export class SecurityCamerasComponent implements OnDestroy, OnInit {
+  cameraList;
+  connection;
+  selectedCamera;
   isSingleView = false;
+
+    constructor(private eventService: EventListService) {}
+
+    ngOnInit() {
+        this.connection = this.eventService.getCameras().subscribe(message => {
+            this.cameraList = message;
+        });
+    }
+    sendMessage(message) {
+        this.eventService.sendMessage(message);
+    }
+
+    ngOnDestroy() {
+        this.connection.unsubscribe();
+        }
 
   selectCamera(camera: any) {
     this.selectedCamera = camera;
     this.isSingleView = true;
+    this.sendMessage(camera.id);
   }
 }
