@@ -10,7 +10,7 @@ Dashboard backend to receive notifications and debug videos and send to frontend
 2. Create virtualenv `$ virtualenv --system-site-packages -p python3 venv`
 3. Activate virtualenv `$ source venv/bin/activate`
 4. Install requirements `$ pip install -r requirements.txt`
-5. Set the variables `BROKER_ADDRESS` and `MONITOR_ADDRESS` (`main.py`)
+5. Set the variables `BACKEND_ADDRESS`, `PORT`, `OBJECT_DETECTION_ADDRESS`, `OBJECT_DETECTION_PORT` (`main.py`)
 
 ## Run
 ```
@@ -18,15 +18,15 @@ Dashboard backend to receive notifications and debug videos and send to frontend
 ```
 
 ## Backend useful urls
-- List received events
+- List received events and available cameras.
 ```
-<MONITOR_ADDRESS>:5000/
+<BACKEND_ADDRESS>:<PORT>/
 ```
 - Send a test event
 ```
-<MONITOR_ADDRESS>:5000/send-test-event
+<MONITOR_ADDRESS>:<PORT>/send-test-event
 ```
-- Debug video received
+- Monitor video received
 ```
-<MONITOR_ADDRESS>:5000/monitor-video
+<MONITOR_ADDRESS>:<PORT>/monitor-video
 ```
