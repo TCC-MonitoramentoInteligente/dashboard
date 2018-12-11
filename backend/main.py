@@ -86,10 +86,10 @@ def on_message_object(client, userdata, msg):
     else:
         include_message(content, 'info')
         if 'Camera' in message:
-            if 'registered' in message:
-                include_camera(int(message.split(' ')[1]))
-            elif 'unregistered' in message:
+            if 'unregistered' in message:
                 remove_camera(int(message.split(' ')[1]))
+            elif 'registered' in message:
+                include_camera(int(message.split(' ')[1]))
             socketio.emit('camera', AVAILABLE_CAMERAS)
 
     socketio.emit('event', INCOMING_EVENTS)
