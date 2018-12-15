@@ -29,6 +29,7 @@ camera_monitor = None
 AVAILABLE_EVENTS = {
     'object-detection/#',
     'fainting-recognition/#',
+    'actions/#',
 }
 
 AVAILABLE_CAMERAS = []
@@ -106,6 +107,17 @@ def on_message_fainting(client, userdata, msg):
     socketio.emit('event', INCOMING_EVENTS)
 
 
+def on_message_actions(client, userdata, msg):
+    message = msg.payload.decode()
+    content = "Actions Service: " + message
+    print(msg.topic, content)
+    if 'error' in msg.topic:
+        include_message(content, 'warning')
+    else:
+        include_message(content, 'info')
+    socketio.emit('event', INCOMING_EVENTS)
+
+
 @app.route("/")
 def index():
     return jsonify(INCOMING_EVENTS, AVAILABLE_CAMERAS)
@@ -165,6 +177,8 @@ def start_mqtt():
     client.message_callback_add('object-detection/logs/error', on_message_object)
     client.message_callback_add('fainting-recognition/logs/success', on_message_fainting)
     client.message_callback_add('fainting-recognition/logs/error', on_message_fainting)
+    client.message_callback_add('actions/logs/success', on_message_actions)
+    client.message_callback_add('actions/logs/error', on_message_actions)
     client.connect(BROKER_ADDRESS)
     client.loop_start()
 
