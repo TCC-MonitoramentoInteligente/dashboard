@@ -10,7 +10,7 @@
 
   nb-card-body {
     padding: 0;
-    position: relative;
+    //position: relative;
   }
 
   nb-card-footer {
@@ -150,6 +150,38 @@
         top: 0;
         background-color: nb-theme(color-success);
         border-radius: nb-theme(radius);
+      }
+    }
+  }
+
+  .delta {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      right: 100%;
+      margin-right: 0.7rem;
+      @include nb-rtl(margin-right, 0);
+      @include nb-rtl(margin-left, 0.7rem);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+
+    &.down {
+      color: text-danger();
+
+      &::before {
+        border-top: 6px solid text-danger();
+      }
+    }
+
+    &.up {
+      color: text-success();
+
+      &::before {
+        border-bottom: 6px solid text-success();
       }
     }
   }
