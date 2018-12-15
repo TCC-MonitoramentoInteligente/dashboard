@@ -33,7 +33,6 @@ AVAILABLE_EVENTS = {
 }
 
 AVAILABLE_CAMERAS = []
-
 INCOMING_EVENTS = []
 thread = Thread()
 
@@ -202,20 +201,24 @@ def send_monitor(cam_id):
         return
     if sock:
         sock.close()
-    connected = True
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind((BACKEND_ADDRESS, 0))
-    sock.setblocking(False)
-    port = sock.getsockname()[1]
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.bind((BACKEND_ADDRESS, 0))
+        sock.setblocking(False)
+        port = sock.getsockname()[1]
+        connected = True
 
-    data = {
-        'cam_id': int(cam_id),
-        'client_ip': BACKEND_ADDRESS,
-        'client_port': port,
-    }
-    print("enable monitor debug video", cam_id, port)
-    requests.post(url='http://{}:{}/object-detection/monitor/'.format(OBJECT_DETECTION_ADDRESS, OBJECT_DETECTION_PORT), timeout=10, data=data)
-    camera_monitor = cam_id
+        data = {
+            'cam_id': int(cam_id),
+            'client_ip': BACKEND_ADDRESS,
+            'client_port': port,
+        }
+        print("enable monitor debug video", cam_id, port)
+        requests.post(url='http://{}:{}/object-detection/monitor/'.format(OBJECT_DETECTION_ADDRESS, OBJECT_DETECTION_PORT), timeout=10, data=data)
+        camera_monitor = cam_id
+    except Exception as e:
+        print(e)
+        connected = False
 
 
 if __name__ == 'main':
